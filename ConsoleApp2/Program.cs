@@ -1,33 +1,35 @@
-﻿namespace ConsoleApp2
+﻿using System;
+
+namespace ConsoleApp2
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int nlines = int.Parse(Console.ReadLine());
+            const int CONSUMED_BY_WORKERS = 26;
+            const int MINIMUM_SPICES_TO_GATHERE = 100;
+            const int DAYLY_DECRESE = 10;
+            
 
-            double biggestKeg = double.MinValue;
 
-            string biggestKegName = "";
+            
+            int countOfSpices = int.Parse(Console.ReadLine());
+            int totalConsumed = 0;
+            int daysCounter = 0;
 
-            for (int i = 0; i < nlines; i++)
+            while (countOfSpices >= MINIMUM_SPICES_TO_GATHERE)
             {
-                string model = Console.ReadLine();
-                float radius = float.Parse(Console.ReadLine());
-                int height = int.Parse(Console.ReadLine());
-
-                double volumeOfTheCurrentKeg = Math.PI * Math.Pow(radius, 2) * height;
-
-                if (volumeOfTheCurrentKeg > biggestKeg)
+                totalConsumed += countOfSpices - CONSUMED_BY_WORKERS;
+                countOfSpices -= DAYLY_DECRESE;
+                daysCounter++;
+                if (countOfSpices < MINIMUM_SPICES_TO_GATHERE)
                 {
-                    biggestKeg = volumeOfTheCurrentKeg;
-                    biggestKegName = model;
+                    totalConsumed -= CONSUMED_BY_WORKERS;
                 }
-
-                
             }
 
-            Console.WriteLine(biggestKegName);
+            Console.WriteLine(daysCounter);
+            Console.WriteLine(totalConsumed);
         }
     }
 }
